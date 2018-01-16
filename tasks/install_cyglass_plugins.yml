@@ -1,0 +1,20 @@
+---
+ - name: Download the memory plugin
+   get_url:
+    url: https://raw.githubusercontent.com/justintime/nagios-plugins/master/check_mem/check_mem.pl
+    dest: /usr/lib/nagios/plugins/check_mem.pl
+    mode: 0755
+   become: true
+ - name: Install the memory check command
+   copy:
+    src: files/memory.conf
+    dest: /usr/share/icinga2/include/plugins-contrib.d/memory.conf
+    owner: root
+    group: root
+    mode: 0644
+   become: true
+ - name: Reload Icinga On Client
+   service:
+        name: icinga2
+        state: reloaded
+   become: true
