@@ -1,0 +1,5 @@
+object HostGroup "{{ org }}-servers" {
+  display_name = "{{ org }} Servers"
+
+  assign where host.vars.customer == "{{ org }}"
+}
