@@ -18,3 +18,4 @@
         name: icinga2
         state: reloaded
    become: true
+   ignore_errors: true
