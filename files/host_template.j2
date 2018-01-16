@@ -1,4 +1,4 @@
-/* Linux Client Example */
+* Linux Client Example */
 
 object Zone "{{ hostvars[item][fqdn_attr] }}" {
   endpoints = [ "{{ hostvars[item][fqdn_attr] }}" ]
@@ -11,5 +11,11 @@ object Endpoint "{{ hostvars[item][fqdn_attr] }}" {
 
 object Host "{{ hostvars[item][fqdn_attr] }}" {
   import "generic-linux-host"
+  {% if hostvars[item]['ami_Name'] is defined %}
+  vars.ami_name = "{{ hostvars[item]['ami_Name'].split('-')[1] }}"
+  {% endif %}
+  {% if hostvars[item]['ami_Company'] is defined %}
+  vars.customer = "{{ hostvars[item]['ami_Company'] }}"
+  {% endif %}
   address = "{{ hostvars[item][fqdn_attr] }}"
 }
