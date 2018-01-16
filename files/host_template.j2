@@ -1,4 +1,4 @@
-* Linux Client Example */
+/* Linux Client Example */
 
 object Zone "{{ hostvars[item][fqdn_attr] }}" {
   endpoints = [ "{{ hostvars[item][fqdn_attr] }}" ]
