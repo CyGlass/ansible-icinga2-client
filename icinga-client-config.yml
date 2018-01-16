@@ -55,6 +55,8 @@
     - debug: 
          msg: "Icinga previously configured for this master"
       when: cert.stat.exists == true
+  tasks:
+      - include: tasks/install_cyglass_plugins.yml
   roles:
     - { role: icinga-client-config, when: "cert.stat.exists == false" }
 - name: Reload Icinga On Master
