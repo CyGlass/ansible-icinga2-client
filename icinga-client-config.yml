@@ -6,6 +6,10 @@
   vars:
     fqdn_attr: "fqdn"
   tasks:
+     - name: "Generate hostgroup for {{ org }} "
+       template: 
+          dest: /etc/icinga2/conf.d/{{ org }}_group.conf
+          src: files/host_group_template.j2  
     - include: tasks/master-client-config.yml
       with_items: "{{ groups[lookup('env','ICINGA_HOSTS')] }}" 
     - set_fact:
