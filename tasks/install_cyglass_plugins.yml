@@ -27,6 +27,10 @@
     group: root
     mode: 0644
    become: true
+ - name: "Install mpstat"
+   apt: 
+    name: sysstat
+    state: present
  - name: Reload Icinga On Client
    service:
         name: icinga2
