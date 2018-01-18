@@ -13,6 +13,20 @@
     group: root
     mode: 0644
    become: true
+ - name: Download the fd plugin
+   get_url:
+    url: https://exchange.nagios.org/components/com_mtree/attachment.php?link_id=2767&cf_id=24
+    dest: /usr/lib/nagios/plugins/check_fd
+    mode: 0755
+   become: true
+ - name: Install the fd check command
+   copy:
+    src: files/fd.conf
+    dest: /usr/share/icinga2/include/plugins-contrib.d/fd.conf
+    owner: root
+    group: root
+    mode: 0644
+   become: true
  - name: Reload Icinga On Client
    service:
         name: icinga2
