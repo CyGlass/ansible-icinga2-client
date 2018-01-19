@@ -31,6 +31,21 @@
    apt: 
     name: sysstat
     state: present
+ - name: Install the mpstat plugin
+   copy:
+    src: files/check_mpstat.sh
+    dest: /usr/lib/nagios/plugins/check_mpstat.sh
+    owner: root
+    group: root
+    mode: 0644
+ - name: Install the mpstat check command
+   copy:
+    src: files/mpstat.conf
+    dest: /usr/share/icinga2/include/plugins-contrib.d/mpstat.conf
+    owner: root
+    group: root
+    mode: 0644
+   become: true
  - name: Reload Icinga On Client
    service:
         name: icinga2
