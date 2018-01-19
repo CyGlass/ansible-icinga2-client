@@ -37,7 +37,7 @@
     dest: /usr/lib/nagios/plugins/check_mpstat.sh
     owner: root
     group: root
-    mode: 0644
+    mode: 0755
  - name: Install the mpstat check command
    copy:
     src: files/mpstat.conf
