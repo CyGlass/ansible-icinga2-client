@@ -46,6 +46,22 @@
     group: root
     mode: 0644
    become: true
+ - name: Install the statsjobrun plugin
+   copy:
+    src: files/check_statsjobrun.sh
+    dest: /usr/lib/nagios/plugins/check_statsjobrun.sh
+    owner: root
+    group: root
+    mode: 0755
+ - name: Install the statsjobrun check command
+   copy:
+    src: files/statsjobrun.conf
+    dest: /usr/share/icinga2/include/plugins-contrib.d/statsjobrun.conf
+    owner: root
+    group: root
+    mode: 0644
+   become: true
+   
  - name: Reload Icinga On Client
    service:
         name: icinga2
