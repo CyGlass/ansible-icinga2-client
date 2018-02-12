@@ -53,7 +53,7 @@
     owner: root
     group: root
     mode: 0755
- - name: Install the statsjobrun check command
+ - name: Install the statsjobrun check command on node
    copy:
     src: files/statsjobrun.conf
     dest: /usr/share/icinga2/include/plugins-contrib.d/statsjobrun.conf
