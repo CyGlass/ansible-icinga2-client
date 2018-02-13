@@ -61,7 +61,7 @@ fi
 
 tmpfile1=$(mktemp /tmp/cyglass_statsjob.out.XXXXXX)
 
-query=`echo "{\"size\":1,\"query\":{\"bool\":{\"must_not\":{\"term\":{\"imported.${stat}\":0}}}}}"`
+query=`echo "{\"sort\":{\"endtime\":{\"order\":\"desc\"}},{\"size\":1,\"query\":{\"bool\":{\"must_not\":{\"term\":{\"imported.${stat}\":0}}}}}"`
 curl -XGET http://cyglassCDH1:9200/statsjobrun/_search -H 'Content-Type: application/json' -d $query 2> /dev/null 1> $tmpfile1
 
 last_stat=`cat $tmpfile1 | jq '.hits.hits[0]._source.endtime'`
@@ -105,7 +105,7 @@ optional_perfdata=
 rm $tmpfile1
 
 if [[ "$rc" -eq "0" ]]; then
-   service_output="CYGLASS-STATSJOB OK - ${delta_hrs} hrs since ${stat} was not zero;"
+	service_output="CYGLASS-STATSJOB OK - Last value of ${stat} was ${last_stat_value};"
 elif [[ "$rc" -eq "1" ]]; then
    service_output="CYGLASS-STATSJOB WARNING - ${delta_hrs} hrs since ${stat} was not zero > ${warn};"
 else
