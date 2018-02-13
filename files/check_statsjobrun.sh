@@ -61,7 +61,7 @@ fi
 
 tmpfile1=$(mktemp /tmp/cyglass_statsjob.out.XXXXXX)
 
-query=`echo "{\"sort\":{\"endtime\":{\"order\":\"desc\"}},{\"size\":1,\"query\":{\"bool\":{\"must_not\":{\"term\":{\"imported.${stat}\":0}}}}}"`
+query=`echo "{\"sort\":{\"endtime\":{\"order\":\"desc\"}},\"size\":1,\"query\":{\"bool\":{\"must_not\":{\"term\":{\"imported.${stat}\":0}}}}}"`
 curl -XGET http://cyglassCDH1:9200/statsjobrun/_search -H 'Content-Type: application/json' -d $query 2> /dev/null 1> $tmpfile1
 
 last_stat=`cat $tmpfile1 | jq '.hits.hits[0]._source.endtime'`
