@@ -61,6 +61,7 @@ fi
 
 tmpfile1=$(mktemp /tmp/cyglass_statsjob.out.XXXXXX)
 
+#Search for the lastest run that has non-zero duration and does have the stat=0
 query=`echo "{\"sort\":{\"endtime\":{\"order\":\"desc\"}},\"size\":1,\"query\":{\"bool\":{\"filter\":{\"range\":{\"duration\":{\"gt\":0}}},\"must_not\":{\"term\":{\"imported.${stat}\":0}}}}}"`
 curl -XGET http://cyglassCDH1:9200/statsjobrun/_search -H 'Content-Type: application/json' -d $query 2> /dev/null 1> $tmpfile1
 
